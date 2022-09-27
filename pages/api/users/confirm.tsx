@@ -41,5 +41,7 @@ async function handler(
   });
 }
 
-export default withApiSession(withHandler("POST", handler));
+export default withApiSession(
+  withHandler({ method: "POST", handler, isPrivate: false })
+);
 //아이언 세션 핸들러
