@@ -4,6 +4,21 @@
 - npx prisma or npx prisma init
 - extension: prisma install
 
+윈도우 버전 플래닛스케일 CLI
+scoop bucket add pscale https://github.com/planetscale/scoop-bucket.git
+scoop install pscale mysql
+
+다른 문제는 설치 Microsoft Visual C++ 2015 Redistributable하면 이 문제가 해결될 것이라고 제안하므로 설치해 보세요
+
+또는 맥버전
+brew install planetscale/tap/pscale
+선택 사항: pscale특정 명령에 대해 MySQL 클라이언트가 필요합니다. 다음을 실행하여 설치할 수 있습니다.
+
+brew install mysql-client
+최신 버전으로 업그레이드하려면:
+
+brew upgrade pscale
+
 npx prisma studio
 pscale connect carrot-market
 npx prisma db push
@@ -25,6 +40,8 @@ mySql 과 호환되는 서버리스 데이터베이스 플랫폼
 ## Installation
 
 #### 출처 [링크](https://github.com/planetscale/cli/blob/main/README.md#macos)
+
+####
 
 #### macOS
 
