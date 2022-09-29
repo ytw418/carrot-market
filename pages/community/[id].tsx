@@ -41,6 +41,7 @@ interface AnswerResponse {
 
 const CommunityPostDetail: NextPage = () => {
   const router = useRouter();
+
   const { register, handleSubmit, reset } = useForm<AnswerForm>();
   const { data, mutate } = useSWR<CommunityPostResponse>(
     router.query.id ? `/api/posts/${router.query.id}` : null
@@ -77,10 +78,13 @@ const CommunityPostDetail: NextPage = () => {
     sendAnswer(form);
   };
   useEffect(() => {
+    console.log("answerData", answerData);
+    console.log("data", data);
     if (answerData && answerData.ok) {
       reset();
+      mutate();
     }
-  }, [answerData, reset]);
+  }, [answerData, data, reset]);
   return (
     <Layout canGoBack>
       <div>
@@ -157,7 +161,7 @@ const CommunityPostDetail: NextPage = () => {
                   {answer.user.name}
                 </span>
                 <span className="text-xs text-gray-500 block ">
-                  {answer.createdAt}
+                  {answer?.createdAt}
                 </span>
                 <p className="text-gray-700 mt-2">{answer.answer} </p>
               </div>

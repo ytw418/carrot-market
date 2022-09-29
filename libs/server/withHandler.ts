@@ -25,6 +25,10 @@ export default function withHandler({
       return res.status(405).end();
     }
     if (isPrivate && !req.session.user) {
+      console.log("req.session.user", req.session.user);
+      console.log("req.session", req.session);
+      console.log("req", req);
+
       return res.status(401).json({ ok: false, error: "Plz log in." });
     }
     try {
