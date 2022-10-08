@@ -241,3 +241,23 @@ carrot@noreply.com 같은 존재하지 않는 이름으로 해보았는데 오�
 커밋테스트-5 = all holicreact
 커밋테스트-6 = 윈도우
 커밋테스트-7 = 윈도우
+
+#[]채팅창의 스크롤을 맨 밑으로 유지하는 법
+
+아무런 처리를 해주지 않으면 처음 채팅 화면에 진입할 때 스크롤이 맨 위에 위치하고
+새 메세지를 보낼 때 스크롤이 밑으로 늘어나지만 화면은 그대로인 상태가 됩니다
+평소 사용하는 채팅 앱 등을 생각해보면 스크롤을 항상 맨 아래로 당겨줘야 합니다
+
+useRef와 scrollIntoView 를 사용해서 해결할 수 있습니다.
+
+```
+// useRef로 스크롤할 DOM을 선택하고 useEffect와 scrollIntoView로 스크롤합니다
+const scrollRef = useRef<HTMLDivElement>(null);
+useEffect(() => {
+scrollRef?.current?.scrollIntoView();
+});
+...
+// 메세지들 목록 맨 밑에 빈 div를 만들어 ref를 설정합니다.
+{data?.stream.messages.map...}
+<div ref={scrollRef}/>
+```
