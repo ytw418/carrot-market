@@ -250,6 +250,9 @@ carrot@noreply.com 같은 존재하지 않는 이름으로 해보았는데 오�
 
 useRef와 scrollIntoView 를 사용해서 해결할 수 있습니다.
 
+
+
+
 ```
 // useRef로 스크롤할 DOM을 선택하고 useEffect와 scrollIntoView로 스크롤합니다
 const scrollRef = useRef<HTMLDivElement>(null);
@@ -261,3 +264,8 @@ scrollRef?.current?.scrollIntoView();
 {data?.stream.messages.map...}
 <div ref={scrollRef}/>
 ```
+
+체팅 관련 깃 https://github.com/SM0413/carrotMarket/commit/759c48054004d498eb8573944535b59f3f6ebe64
+
+
+C
