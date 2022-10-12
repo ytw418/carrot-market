@@ -1,27 +1,51 @@
-import FloatingButton from "@components/floating-button";
-import Layout from "@components/layout";
-import Link from "next/link";
-import type { NextPage } from "next";
 import { Stream } from "@prisma/client";
+import type { NextPage } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
+import FloatingButton from "../../components/floating-button";
+import Layout from "../../components/layout";
 
 interface StreamsResponse {
   ok: boolean;
   streams: Stream[];
 }
 
-const Streams: NextPage = () => {
-  const { data } = useSWR<StreamsResponse>(`/api/streams`);
-  console.log("data", data);
-
+const Stream: NextPage = () => {
+  const [page, setPage] = useState(1);
+  const [mergedData, setMergedData] = useState<Stream[]>([]);
+  const { data } = useSWR<StreamsResponse>(`/api/streams?page=${page}`);
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setPage((prev) => prev + 1);
+    }
+  };
+  useEffect(() => {
+    if (data) setMergedData((prev) => prev.concat(data?.streams));
+  }, [data]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [setPage, page]);
   return (
     <Layout hasTabBar title="라이브">
-      <div className=" divide-y-[1px] space-y-4">
-        {data?.streams.map((stream) => (
+      <div className=" space-y-4 divide-y-[1px]">
+        {mergedData?.map((stream) => (
           <Link key={stream.id} href={`/streams/${stream.id}`}>
-            <a className="pt-4 block  px-4">
-              <div className="w-full rounded-md shadow-sm bg-slate-300 aspect-video" />
-              <h1 className="text-2xl mt-2 font-bold text-gray-900">
+            <a className="block px-4  pt-4">
+              <div className="relative aspect-video w-full overflow-hidden rounded-md bg-slate-300 shadow-sm">
+                {/* <Image
+                  layout="fill"
+                  src={`https://videodelivery.net/${stream.cloudflareId}/thumbnails/thumbnail.jpg?height=320`}
+                /> */}
+              </div>
+              <h1 className="mt-2 text-2xl font-bold text-gray-900">
                 {stream.name}
               </h1>
             </a>
@@ -29,7 +53,7 @@ const Streams: NextPage = () => {
         ))}
         <FloatingButton href="/streams/create">
           <svg
-            className="w-6 h-6"
+            className="h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -47,5 +71,4 @@ const Streams: NextPage = () => {
     </Layout>
   );
 };
-
-export default Streams;
+export default Stream;

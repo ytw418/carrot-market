@@ -242,16 +242,17 @@ carrot@noreply.com 같은 존재하지 않는 이름으로 해보았는데 오�
 커밋테스트-6 = 윈도우
 커밋테스트-7 = 윈도우
 
-#[]채팅창의 스크롤을 맨 밑으로 유지하는 법
+### 10/8(목) 14.4
+
+### 채팅창의 스크롤을 맨 밑으로 유지하는 법
+
+-[ ] 채팅 스크롤 처리
 
 아무런 처리를 해주지 않으면 처음 채팅 화면에 진입할 때 스크롤이 맨 위에 위치하고
 새 메세지를 보낼 때 스크롤이 밑으로 늘어나지만 화면은 그대로인 상태가 됩니다
 평소 사용하는 채팅 앱 등을 생각해보면 스크롤을 항상 맨 아래로 당겨줘야 합니다
 
 useRef와 scrollIntoView 를 사용해서 해결할 수 있습니다.
-
-
-
 
 ```
 // useRef로 스크롤할 DOM을 선택하고 useEffect와 scrollIntoView로 스크롤합니다
@@ -267,5 +268,145 @@ scrollRef?.current?.scrollIntoView();
 
 체팅 관련 깃 https://github.com/SM0413/carrotMarket/commit/759c48054004d498eb8573944535b59f3f6ebe64
 
-
 C
+
+useSWR() 옵션
+
+refreshInterval
+기본적으로 비활성화됨 => refreshInterval = 0
+숫자를 설정하면 밀리초 간격으로 polling합니다.
+함수로 설정하면 함수는 최신 데이터를 받고, 밀리초 단위로 리턴합니다.
+ex) useSWR('/api/todos', fetcher, { refreshInterval: 1000 })
+https://swr.vercel.app/docs/options#options
+https://swr.vercel.app/ko/docs/options
+
+Revalidate on Interval
+https://swr.vercel.app/docs/revalidation#revalidate-on-interval
+
+2
+
+phgst1 month ago
+window 는 채팅창 스크롤바가 너무 거슬려서 커스텀할 수 있는 플러그인을 찾았습니다.
+
+설치
+npm install --save-dev tailwind-scrollbar
+
+세팅
+tailwind.congfig.js 파일에 아래와 같이 추가
+
+plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar")],
+// 위 코드처럼 기존 plugins array 안에 require("tailwind-scrollbar") 를 추가하면 됨
+
+커스텀참고
+https://tailwind-scrollbar-example.adoxography.repl.co/
+
+1
+
+knotehow5 months ago
+mutate를 false로 설정해뒀을때 api에러가 나면 어떻게 처리하면 좋을까요? false이기 때문에 UI가 바로 갱신되어서 사용자입장에서는 에러로 느낄 수 없는데 실제로는 에러로 인해 db에 데이터가 생기지 않아서 refresh를 하게되면 문제가 생길것 같은데 이런경우에 어떻게 처리하면 좋을지 궁금합니다.
+
+1
+
+haloo5 months ago
+@knotehow SWRConfig 옵션에:
+
+"rollbackOnError: true"를 넣어주세요.
+
+rollbackOnError 뜻: should the cache rollback if the remote mutation errors.
+
+jinyinshu1 month ago
+라이브 챗에서 메세지를 입력해도 라이브챗 창에서 스크롤이 맨 아래로 자동적으로
+안가는데, 혹시 메세지 입력시마다 라이브 챗 창이 맨아래로 유지되게 하는 방법이
+있을까요??
+
+0
+
+serranoarevalo1 month ago
+@jinyinshu You can use `useRef` and put it on the scroll component. Then you can do scrollTop = scrollHeight
+
+coho2 months ago
+니코샘, refreshInterval을 한번 동작시키면
+다른 페이지로 이동해도 계속 동작하는 것을 확인했습니다.
+refreshInterval을 해당 페이지에서만 동작 시키고 싶으면
+어떻게 해야할까요?
+
+0
+
+serranoarevalo2 months ago
+@coho You mean you don't want to refresh when you are away?
+
+coho2 months ago
+@serranoarevalo
+yes
+page A - useSWR();
+page B - useSWR({ refreshInterval: 1000 });
+
+I want
+page A(not refersh) -> page B(refersh) -> page A(not refersh)
+
+serranoarevalo2 months ago
+@coho You need to set 'revalidateOnFocus' to false.
+
+coho2 months ago
+@serranoarevalo
+감사합니다 니코샘!
+
+wlsdnr1292 months ago
+nico, Can't use real-time communication using nextjs and socketio?
+
+0
+
+serranoarevalo2 months ago
+@wlsdnr129 SocketIO needs a server to keep the connections open. The functions in NextJS are serverless which means that they only run when called and then the server is killed.
+
+This means we can't use SocketIO.
+
+BUT I'm working on a bonus where we use Cloudflare and Durable Objects to get realtime + serverless.
+
+What Cloudflare is doing for serverless is mindblowing.
+
+The bonus is coming soon, but if you want to you can check out the code:
+
+https://developers.cloudflare.com/workers/learning/using-durable-objects/
+https://developers.cloudflare.com/workers/learning/using-websockets/
+
+wlsdnr1292 months ago
+@serranoarevalo thanks a lot !!!
+
+horrorkist3 months ago
+채팅 입력 방식을 개선할 수 있을까요? 현재는 짧은 시간 내에 여러번 채팅을 입력하면 loading의 상태에 따라 그냥 입력이 안 되게 하는데, 큐 등을 이용해서 loading 중에 입력이 발생하면 입력 큐에 해당 요청을 집어넣고 이전 요청이 처리되면 큐 안의 요청을 처리하는 식으로 구현해보고 싶네요
+
+0
+
+serranoarevalo3 months ago
+@horrorkist You could disable the onSubmit function if the mutation is `loading`
+
+horrorkist3 months ago
+@serranoarevalo Thx for replying! But I was wondering if you could keep the submit in a waiting queue when the loading is true, then deal with it as soon as the previous request is over. That would be a better user experience than just ignoring all the submits during the loading state.
+
+serranoarevalo3 months ago
+@horrorkist I think it depends how long does it take to submit the message, if you submit the message and the input gets cleaned the user will have to type another message, in that time the message request must have finished.
+Anyhow, if you still want a queue you will need to look for something serverless like: https://quirrel.dev/
+
+Or you could deploy a Worker https://developers.cloudflare.com/workers/platform/cron-triggers/
+
+horrorkist3 months ago
+@serranoarevalo Yes I was thinking of a situation where a user submitting short messages less than like 5 times in a row, which is not for a toxic purpose. Quirrel looks simple and great, but it's hard to understand what cloudflare worker does :( I'll be looking forward to the bonus cloudflare workers lecture! Thank you for the detailed reply!!
+
+serranoarevalo3 months ago
+@horrorkist I think it that case is better to do WebSockets. See you on the bonus!
+
+jiunkim4 months ago
+Hi Nico.
+Where is the amazing part uploaded?
+
+0
+
+serranoarevalo4 months ago
+@jiunkim Which part :)
+
+jiunkim3 months ago
+@serranoarevalo The realtime!?? Every 1sec refreshInterval is that?
+
+serranoarevalo3 months ago
+@jiunkim Serverless Realtime will be on the bonus using Cloudflare Workers and Durable Objects. I'm working on it :)
