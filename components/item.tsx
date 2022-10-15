@@ -6,6 +6,7 @@ interface ItemProps {
   price: number;
   comments?: number;
   hearts: number;
+  image: string;
 }
 
 export default function Item({
@@ -14,6 +15,7 @@ export default function Item({
   comments,
   hearts,
   id,
+  image,
 }: ItemProps) {
   return (
     <Link href={`/products/${id}`}>

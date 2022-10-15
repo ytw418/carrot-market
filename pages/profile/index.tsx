@@ -1,11 +1,13 @@
+import type { NextPage, NextPageContext } from "next";
 import { Review, User } from "@prisma/client";
+import useSWR, { SWRConfig } from "swr";
 
 import Layout from "@components/layout";
 import Link from "next/link";
-import type { NextPage } from "next";
+import client from "@libs/server/client";
 import { cls } from "@libs/client/utils";
-import useSWR from "swr";
 import useUser from "@libs/client/useUser";
+import { withSsrSession } from "@libs/server/withSession";
 
 interface ReviewWithUser extends Review {
   createdBy: User;
@@ -147,4 +149,31 @@ const Profile: NextPage = () => {
   );
 };
 
-export default Profile;
+const Page: NextPage<{ profile: User }> = ({ profile }) => {
+  return (
+    <SWRConfig
+      value={{
+        fallback: {
+          "/api/users/me": { ok: true, profile },
+        },
+      }}
+    >
+      <Profile />
+    </SWRConfig>
+  );
+};
+
+export const getServerSideProps = withSsrSession(async function ({
+  req,
+}: NextPageContext) {
+  const profile = await client.user.findUnique({
+    where: { id: req?.session.user?.id },
+  });
+  return {
+    props: {
+      profile: JSON.parse(JSON.stringify(profile)),
+    },
+  };
+});
+
+export default Page;

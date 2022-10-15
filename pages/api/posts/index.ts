@@ -13,6 +13,7 @@ async function handler(
       body: { question, latitude, longitude },
       session: { user },
     } = req;
+
     const post = await client.post.create({
       data: {
         question,
@@ -52,17 +53,18 @@ async function handler(
           },
         },
       },
-      where: {
-        latitude: {
-          gte: parsedLatitude - 0.01,
-          lte: parsedLatitude + 0.01,
-        },
-        longitude: {
-          gte: parsedLongitude - 0.01,
-          lte: parsedLongitude + 0.01,
-        },
-      },
+      // where: {
+      //   latitude: {
+      //     gte: parsedLatitude - 0.01,
+      //     lte: parsedLatitude + 0.01,
+      //   },
+      //   longitude: {
+      //     gte: parsedLongitude - 0.01,
+      //     lte: parsedLongitude + 0.01,
+      //   },
+      // },
     });
+    await res.revalidate("/community");
     res.json({
       ok: true,
       posts,
