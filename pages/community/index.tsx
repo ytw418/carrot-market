@@ -1,5 +1,4 @@
 import { Post, User } from "@prisma/client";
-import useSWR, { SWRConfig } from "swr";
 import useSWRInfinite, { unstable_serialize } from "swr/infinite";
 
 import FloatingButton from "@components/floating-button";
@@ -7,8 +6,8 @@ import { GetStaticProps } from "next";
 import Layout from "@components/layout";
 import Link from "next/link";
 import type { NextPage } from "next";
+import { SWRConfig } from "swr";
 import client from "@libs/server/client";
-import useCoords from "../../libs/client/useCoords";
 import { useEffect } from "react";
 import { useInfiniteScroll } from "@libs/client/useInfiniteScroll";
 
@@ -166,6 +165,7 @@ export const getStaticProps: GetStaticProps = async () => {
         },
       },
     },
+    orderBy: [{ createdAt: "desc" }],
   });
   return {
     props: {

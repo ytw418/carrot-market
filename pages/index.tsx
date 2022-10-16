@@ -1,4 +1,4 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import useSWRInfinite, { unstable_serialize } from "swr/infinite";
 
 import FloatingButton from "@components/floating-button";
@@ -9,7 +9,6 @@ import { SWRConfig } from "swr";
 import client from "@libs/server/client";
 import { useEffect } from "react";
 import { useInfiniteScroll } from "@libs/client/useInfiniteScroll";
-import useUser from "../libs/client/useUser";
 
 export interface ProductWithCount extends Product {
   _count: { favs: number };
@@ -112,6 +111,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
         },
       },
     },
+    orderBy: [{ createdAt: "desc" }],
     take: 10,
     skip: 0,
   });
