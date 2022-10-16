@@ -43,9 +43,14 @@ async function handler(
       },
     });
   }
-  res.json({
-    ok: true,
-  });
+
+  try {
+    await res.revalidate("/community");
+    return res.json({ ok: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ ok: false, error });
+  }
 }
 
 export default withApiSession(

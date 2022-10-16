@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { makeImageUrl } from "@libs/client/utils";
 
 interface ItemProps {
   title: string;
@@ -21,7 +23,13 @@ export default function Item({
     <Link href={`/products/${id}`}>
       <a className="flex px-4 pt-5 cursor-pointer justify-between">
         <div className="flex space-x-4">
-          <div className="w-20 h-20 bg-gray-400 rounded-md" />
+          <Image
+            src={makeImageUrl(image, "public")}
+            className="w-20 h-20 bg-gray-400 rounded-md"
+            alt="productList"
+            width={80}
+            height={80}
+          />
           <div className="pt-2 flex flex-col">
             <h3 className="text-sm font-medium text-gray-900">{title}</h3>
             <span className="font-medium mt-1 text-gray-900">${price}</span>

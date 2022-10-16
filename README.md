@@ -410,3 +410,14 @@ jiunkim3 months ago
 
 serranoarevalo3 months ago
 @jiunkim Serverless Realtime will be on the bonus using Cloudflare Workers and Durable Objects. I'm working on it :)
+
+배포과정과 배포 후에 겪은 문제.
+
+문제-프로덕션에서 폰트를 정상적으로 불러오지 못함. (dev에서는 작동함)
+해결- https://fontsource.org/ 사용
+
+문제- 배포 후 OG가 정상적으로 그려지지 않음
+해결- 강의과정에서 진행한 middleware의 isBot 기능이 OG 데이터를 수집하려는 플랫폼을 막는 듯 함. isBot 기능 제거 후 작동.
+
+문제- 동적 라우팅의 sitemap 작성
+해결- https://cottonwood-moa.tistory.com/137
