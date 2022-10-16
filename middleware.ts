@@ -46,9 +46,9 @@ export const config = {
   matcher: ["/", "/enter"],
 };
 
-export const config = {
-  matcher: "/about/:path*",
-};
+// export const config = {
+//   matcher: "/about/:path*",
+// };
 //  return NextResponse.rewrite(new URL('/about-2', request.url))
 
 // import { NextRequest, NextResponse, userAgent } from "next/server";
