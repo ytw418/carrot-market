@@ -29,8 +29,6 @@ const getKey = (pageIndex: number, previousPageData: ProductsResponse) => {
 };
 
 const Home: NextPage = () => {
-  const { user, isLoading } = useUser();
-
   // useSWRInfinite 사용법
   // https://swr.vercel.app/ko/docs/pagination#useswrinfinite
   const { data, setSize, size } = useSWRInfinite<ProductsResponse>(getKey);

@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "@components/button";
 import Input from "@components/input";
@@ -11,14 +11,14 @@ import { useRouter } from "next/router";
 
 // import Bs from "@components/bs";
 
-const Bs = dynamic(
-  //@ts-ignore
-  () =>
-    new Promise((resolve) =>
-      setTimeout(() => resolve(import("@components/bs")), 1000)
-    ),
-  { ssr: false, suspense: true, loading: () => <span>loading</span> }
-);
+// const Bs = dynamic(
+//   //@ts-ignore
+//   () =>
+//     new Promise((resolve) =>
+//       setTimeout(() => resolve(import("@components/bs")), 1000)
+//     ),
+//   { ssr: false, suspense: true, loading: () => <span>loading</span> }
+// );
 
 interface EnterForm {
   email?: string;
@@ -136,9 +136,6 @@ const Enter: NextPage = () => {
               ) : null}
               {method === "phone" ? (
                 <>
-                  <Suspense fallback={<button>loading!!</button>}>
-                    <Bs />
-                  </Suspense>
                   <Input
                     register={register("phone")}
                     name="phone"
