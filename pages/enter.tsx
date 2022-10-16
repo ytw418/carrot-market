@@ -31,6 +31,7 @@ interface TokenForm {
 
 interface MutationResult {
   ok: boolean;
+  token: string;
 }
 
 const Enter: NextPage = () => {
@@ -62,6 +63,9 @@ const Enter: NextPage = () => {
   useEffect(() => {
     if (tokenData?.ok) {
       router.push("/");
+    }
+    if (data?.ok) {
+      console.log("data?.token", data?.token);
     }
   }, [tokenData, router]);
   return (
