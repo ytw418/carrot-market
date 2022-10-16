@@ -20,7 +20,7 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   if (!req.url.includes("/api")) {
     if (
       !req.url.includes("/enter") &&
-      !req.url.includes("/user/me/confirm") &&
+      !req.url.includes("/") &&
       !req.cookies.get("carrotSession")
     ) {
       NextResponse.redirect(`${req.nextUrl.origin}/enter`);
