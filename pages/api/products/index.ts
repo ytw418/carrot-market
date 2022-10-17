@@ -21,6 +21,7 @@ const handler = async (
           },
         },
       },
+      orderBy: [{ createdAt: "desc" }],
       take: 10,
       skip: page ? (+page - 1) * 10 : 0,
     });
