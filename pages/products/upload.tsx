@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-
+import type { NextPage } from "next";
+import { log } from "next-axiom";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import Button from "@components/button";
 import Input from "@components/input";
 import Layout from "@components/layout";
-import type { NextPage } from "next";
-import { Product } from "@prisma/client";
 import TextArea from "@components/textarea";
-import { useForm } from "react-hook-form";
 import useMutation from "@libs/client/useMutation";
-import { useRouter } from "next/router";
+import { Product } from "@prisma/client";
 
 interface UploadProductForm {
   name: string;
@@ -23,6 +23,7 @@ interface UploadProductMutation {
 }
 
 const Upload: NextPage = () => {
+  log.info("infoinfo");
   const router = useRouter();
   const { register, handleSubmit, watch } = useForm<UploadProductForm>();
   const [uploadProduct, { loading, data }] =
