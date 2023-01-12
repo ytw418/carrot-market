@@ -4,12 +4,22 @@ import useSWRInfinite, { unstable_serialize } from "swr/infinite";
 import FloatingButton from "@components/floating-button";
 import Item from "@components/item";
 import Layout from "@components/layout";
+import LogRocket from "logrocket";
 import { Product } from "@prisma/client";
 import { SWRConfig } from "swr";
 import client from "@libs/server/client";
 import { useEffect } from "react";
 import { useInfiniteScroll } from "@libs/client/useInfiniteScroll";
 
+LogRocket.init("xwhowu/breeder");
+// This is an example script - don't forget to change it!
+// LogRocket.identify('THE_USER_ID_IN_YOUR_APP', {
+//   name: 'James Morrison',
+//   email: 'jamesmorrison@example.com',
+
+//   // Add your own custom user variables here, ie:
+//   subscriptionType: 'pro'
+// });
 export interface ProductWithCount extends Product {
   _count: { favs: number };
 }

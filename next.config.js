@@ -10,7 +10,9 @@
 // module.exports = nextConfig;
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const { withAxiom } = require("next-axiom");
+
+module.exports = withAxiom({
   reactStrictMode: true,
   experimental: {
     reactRoot: true,
@@ -18,4 +20,4 @@ module.exports = {
   images: {
     domains: ["imagedelivery.net", "videodelivery.net"],
   },
-};
+});

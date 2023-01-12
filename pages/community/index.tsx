@@ -47,7 +47,7 @@ const Community: NextPage = () => {
     <Layout seoTitle="동네생활" title="동네생활" hasTabBar>
       <div className="px-4 pb-5 space-y-8">
         {data?.map((result) => {
-          return result.posts.map((post) => (
+          return result?.posts?.map((post) => (
             <Link key={post.id} href={`/community/${post.id}`}>
               <a className="flex flex-col items-start">
                 <span className="flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">

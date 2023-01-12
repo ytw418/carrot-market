@@ -1,8 +1,9 @@
-import "../styles/globals.css";
-
 import type { AppProps } from "next/app";
 import { SWRConfig } from "swr";
 
+import "../styles/globals.css";
+
+export { reportWebVitals } from "next-axiom";
 function MyApp({ Component, pageProps }: AppProps) {
   console.log("APP IS RUNNING");
   return (

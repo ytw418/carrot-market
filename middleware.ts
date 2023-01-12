@@ -32,6 +32,9 @@ export function middleware(req: NextRequest, ev: NextFetchEvent) {
   console.log("api", req.url.includes("/api"));
   console.log("enter", req.url.includes("/enter"));
   console.log("req.cookies.get(", req.cookies.get("carrotSession"));
+  console.log(
+    "===============================미들웨어================================="
+  );
 
   // if (!req.nextUrl.pathname.startsWith("/enter")) {
   //   return NextResponse.redirect(`${req.nextUrl.origin}/enter`);
