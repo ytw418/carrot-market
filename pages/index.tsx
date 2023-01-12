@@ -1,15 +1,15 @@
+import { useEffect } from "react";
+import LogRocket from "logrocket";
 import type { GetStaticProps, NextPage } from "next";
+import { log } from "next-axiom";
+import { SWRConfig } from "swr";
 import useSWRInfinite, { unstable_serialize } from "swr/infinite";
-
 import FloatingButton from "@components/floating-button";
 import Item from "@components/item";
 import Layout from "@components/layout";
-import LogRocket from "logrocket";
-import { Product } from "@prisma/client";
-import { SWRConfig } from "swr";
-import client from "@libs/server/client";
-import { useEffect } from "react";
 import { useInfiniteScroll } from "@libs/client/useInfiniteScroll";
+import client from "@libs/server/client";
+import { Product } from "@prisma/client";
 
 LogRocket.init("xwhowu/breeder");
 // This is an example script - don't forget to change it!
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
   // useSWRInfinite 사용법
   // https://swr.vercel.app/ko/docs/pagination#useswrinfinite
   const { data, setSize, size } = useSWRInfinite<ProductsResponse>(getKey);
-
+  log.debug("open", { userId: 99999999 });
   const page = useInfiniteScroll();
 
   useEffect(() => {

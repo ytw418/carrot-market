@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import { log } from "next-axiom"; // import Bs from "@components/bs";
+import { log } from "next-axiom";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Button from "@components/button";
