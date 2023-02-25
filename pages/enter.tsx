@@ -23,7 +23,7 @@ interface EnterForm {
 }
 
 interface TokenForm {
-  token: string;
+  token: any;
 }
 
 interface MutationResult {
