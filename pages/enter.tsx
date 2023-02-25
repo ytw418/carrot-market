@@ -23,12 +23,12 @@ interface EnterForm {
 }
 
 interface TokenForm {
-  token: any;
+  token: string;
 }
 
 interface MutationResult {
   ok: boolean;
-  token: string;
+  token: any;
 }
 
 const Enter: NextPage = () => {
