@@ -25,7 +25,7 @@ brew install mysql-client
 brew upgrade pscale
 
 npx prisma studio
-pscale connect carrot-market
+pscale connect pro
 npx prisma db push
 npx prisma generate
 

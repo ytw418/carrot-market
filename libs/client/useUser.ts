@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -11,7 +11,7 @@ interface ProfileResponse {
 export default function useUser() {
   const { data, error } = useSWR<ProfileResponse>("/api/users/me");
   const router = useRouter();
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (data && !data.ok) {
       router.replace("/enter");
     }

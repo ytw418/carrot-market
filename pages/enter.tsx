@@ -28,7 +28,7 @@ interface TokenForm {
 
 interface MutationResult {
   ok: boolean;
-  token: string;
+  token: any;
 }
 
 const Enter: NextPage = () => {
@@ -38,8 +38,11 @@ const Enter: NextPage = () => {
   const [confirmToken, { loading: tokenLoading, data: tokenData }] =
     useMutation<MutationResult>("/api/users/confirm");
   const { register, handleSubmit, reset } = useForm<EnterForm>();
-  const { register: tokenRegister, handleSubmit: tokenHandleSubmit } =
-    useForm<TokenForm>();
+  const {
+    register: tokenRegister,
+    handleSubmit: tokenHandleSubmit,
+    setValue: tokenSetValue,
+  } = useForm<TokenForm>();
   const [method, setMethod] = useState<"email" | "phone">("email");
   const onEmailClick = () => {
     reset();
@@ -64,6 +67,7 @@ const Enter: NextPage = () => {
     }
     if (data?.ok) {
       console.log("data?.token", data?.token);
+      tokenSetValue("token", data.token.payload);
     }
   }, [tokenData, router, data]);
   return (

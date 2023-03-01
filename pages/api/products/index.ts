@@ -64,5 +64,5 @@ const handler = async (
 };
 
 export default withApiSession(
-  withHandler({ methods: ["POST", "GET"], handler })
+  withHandler({ methods: ["POST", "GET"], isPrivate: false, handler })
 );
